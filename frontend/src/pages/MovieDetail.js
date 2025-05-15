@@ -8,9 +8,17 @@ const MovieDetail = () => {
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/movies/${id}`)
-            .then(res => res.json())
-            .then(data => setMovie(data));
+            .then(res => {
+                console.log('🔍 STATUS:', res.status);
+                return res.json();
+            })
+            .then(data => {
+                console.log('🎬 DATA:', data);
+                setMovie(data);
+            })
+            .catch(err => console.error('❌ ERRO:', err));
     }, [id]);
+
 
     if (!movie) return <CircularProgress sx={{ m: 4 }} />;
 
